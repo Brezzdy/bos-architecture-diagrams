@@ -1,53 +1,53 @@
-# BOS Platform Architecture
+# Multi-Tenant SaaS Platform
 
 ## System Architecture
 
 ```mermaid
 flowchart TB
-    subgraph DEV["🖥️ Dev Machine"]
+    subgraph DEV["🖥️ Administration Machine"]
         CLI[CLI / Makefile]
-        Configs[clients/ configs]
+        Configs[Tenant Configs]
         Scripts[Provisioning Scripts]
     end
 
-    subgraph CTRL["🌐 Control Node VPS"]
+    subgraph CTRL["🌐 Control Node"]
         direction TB
-        Traefik_Ctrl[Traefik + CrowdSec]
-        Website[Platform Website<br/>Nginx]
-        CRM_Ctrl[Odoo 18<br/>Internal CRM]
+        Traefik_Ctrl[Reverse Proxy + WAF]
+        Website[Marketing Website]
+        CRM_Ctrl[Internal CRM]
         subgraph Monitoring["📊 Monitoring Stack"]
-            Grafana[Grafana]
-            Prom_Ctrl[Prometheus]
-            Alert[Alertmanager]
+            Grafana[Dashboards]
+            Prometheus[Metrics Collector]
+            Alert[Alerting]
         end
     end
 
-    subgraph CLIENT["🏢 Client VPS (per client)"]
+    subgraph TENANT["🏢 Tenant Instance (per client)"]
         direction TB
-        Traefik_C[Traefik + CrowdSec<br/>TLS Termination]
+        Traefik_C[Reverse Proxy + WAF<br/>TLS Termination]
         subgraph Apps["Application Layer"]
-            Auth[Authentik<br/>SSO / Identity]
-            CRM_C[Odoo 18<br/>CRM / Invoicing / HR]
-            Docs[Nextcloud 33<br/>Documents]
-            Vault[Vaultwarden<br/>Passwords]
-            Mail[Mailpit<br/>Email Testing]
+            Auth[Identity Provider<br/>SSO / OAuth2]
+            CRM[CRM / ERP<br/>Invoicing / HR]
+            Docs[Document Management<br/>File Sharing]
+            Vault[Secret Manager<br/>Passwords]
+            Mail[Email Service]
         end
         subgraph Data["Data Layer"]
             DB[(PostgreSQL)]
             Redis[(Redis Cache)]
         end
         subgraph Ops["Operations"]
-            Backup[Backrest<br/>Automated Backup]
-            Metrics[Prometheus Exporter]
+            Backup[Automated Backup]
+            Metrics_T[Metrics Exporter]
         end
     end
 
-    subgraph DNS["☁️ Cloudflare"]
+    subgraph DNS["☁️ DNS & CDN"]
         CF[DNS + DDoS Protection<br/>Wildcard Records]
     end
 
-    CLI -->|"rsync + SSH"| CTRL
-    CLI -->|"rsync + SSH"| CLIENT
+    CLI -->|"Deploy via SSH"| CTRL
+    CLI -->|"Deploy via SSH"| TENANT
     CF -->|HTTPS| Traefik_Ctrl
     CF -->|HTTPS| Traefik_C
 
@@ -56,31 +56,31 @@ flowchart TB
     Traefik_Ctrl --> Grafana
 
     Traefik_C --> Auth
-    Traefik_C --> CRM_C
+    Traefik_C --> CRM
     Traefik_C --> Docs
     Traefik_C --> Vault
     Traefik_C --> Mail
 
-    Auth -.->|SSO| CRM_C
+    Auth -.->|SSO| CRM
     Auth -.->|SSO| Docs
     Auth -.->|SSO| Vault
 
-    CRM_C --> DB
+    CRM --> DB
     Docs --> DB
     Auth --> DB
-    CRM_C --> Redis
+    CRM --> Redis
     Auth --> Redis
 
-    Metrics -->|"HTTPS + Basic Auth"| Prom_Ctrl
-    Prom_Ctrl --> Alert
-    Prom_Ctrl --> Grafana
+    Metrics_T -->|"HTTPS + Auth"| Prometheus
+    Prometheus --> Alert
+    Prometheus --> Grafana
 
     Backup -.->|"Scheduled"| DB
     Backup -.->|"Scheduled"| Docs
 
     style DEV fill:#e3f2fd,stroke:#1565c0
     style CTRL fill:#fff3e0,stroke:#e65100
-    style CLIENT fill:#e8f5e9,stroke:#2e7d32
+    style TENANT fill:#e8f5e9,stroke:#2e7d32
     style DNS fill:#fce4ec,stroke:#c62828
     style Monitoring fill:#fff8e1,stroke:#f57f17
     style Apps fill:#e8f5e9,stroke:#388e3c

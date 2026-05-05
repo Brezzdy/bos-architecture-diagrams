@@ -1,4 +1,4 @@
-# Test Drive Booking Architecture
+# Appointment Booking System
 
 ## System Architecture
 
@@ -6,31 +6,31 @@
 flowchart TB
     subgraph Actors["👥 Actors"]
         Customer[Customer<br/>PWA Mobile/Desktop]
-        Sales[Sales User<br/>Dealership Staff]
+        Staff[Staff User<br/>Back Office]
         SuperAdmin[Super Admin]
     end
 
-    subgraph CloudflareFrontend["📱 Cloudflare Pages"]
-        ReactApp[React + Vite<br/>PWA]
+    subgraph Edge["📱 Static Hosting + CDN"]
+        ReactApp[React PWA<br/>Vite Build]
         subgraph UI["UI Layer"]
-            Calendar[FullCalendar<br/>Availability View]
+            Calendar[Calendar View<br/>Availability Slots]
             BookingForm[Booking Form]
-            FleetMgmt[Fleet Management]
+            ResourceMgmt[Resource Management]
             AdminUI[Admin Dashboard]
         end
     end
 
-    subgraph CloudflareAPI["⚡ Cloudflare Workers"]
-        Hono[Hono Framework]
+    subgraph Workers["⚡ Edge Workers API"]
+        Framework[HTTP Framework]
         subgraph MW["Middleware"]
-            AuthMW[Auth Middleware<br/>JWT + Roles]
+            AuthMW[Auth Middleware<br/>JWT + RBAC]
             RateLimit[Rate Limiting]
         end
         subgraph Routes["API Routes"]
             BookingRoutes[Booking Routes]
-            VehicleRoutes[Vehicle Routes]
+            ResourceRoutes[Resource Routes]
             ScheduleRoutes[Schedule Routes]
-            DealerRoutes[Dealership Routes]
+            TenantRoutes[Tenant Routes]
         end
         subgraph Logic["Business Logic"]
             AvailCalc[Availability Calculator]
@@ -39,23 +39,23 @@ flowchart TB
         end
     end
 
-    subgraph CloudflareData["☁️ Cloudflare Data"]
-        D1[(D1 Database<br/>SQLite)]
-        KV[KV Store<br/>Availability Cache]
-        R2[R2 Storage<br/>Vehicle Images]
+    subgraph DataLayer["☁️ Edge Data"]
+        D1[(SQL Database)]
+        KV[Key-Value Cache<br/>Availability Slots]
+        R2[Object Storage<br/>Images]
     end
 
     subgraph Shared["📦 Shared Package"]
         Types[TypeScript Types]
-        Schemas[Zod Schemas<br/>Validation]
+        Schemas[Validation Schemas]
     end
 
     Customer --> ReactApp
-    Sales --> ReactApp
+    Staff --> ReactApp
     SuperAdmin --> ReactApp
 
-    ReactApp -->|REST API| Hono
-    Hono --> MW --> Routes
+    ReactApp -->|REST API| Framework
+    Framework --> MW --> Routes
     Routes --> Logic
 
     Logic --> D1
@@ -64,16 +64,16 @@ flowchart TB
     ScheduleRoutes --> AvailCalc
     AvailCalc --> SlotGen
 
-    VehicleRoutes --> R2
+    ResourceRoutes --> R2
     AvailCalc --> KV
 
     Shared -.-> ReactApp
-    Shared -.-> Hono
+    Shared -.-> Framework
 
     style Actors fill:#e3f2fd,stroke:#1565c0
-    style CloudflareFrontend fill:#e8f5e9,stroke:#2e7d32
-    style CloudflareAPI fill:#fff3e0,stroke:#e65100
-    style CloudflareData fill:#f3e5f5,stroke:#7b1fa2
+    style Edge fill:#e8f5e9,stroke:#2e7d32
+    style Workers fill:#fff3e0,stroke:#e65100
+    style DataLayer fill:#f3e5f5,stroke:#7b1fa2
     style Shared fill:#e0f7fa,stroke:#00838f
     style UI fill:#e8f5e9,stroke:#388e3c
     style MW fill:#fff8e1,stroke:#f57f17

@@ -1,30 +1,30 @@
 # Architecture Diagrams
 
-Interactive system architecture documentation for all projects.
+Interactive system architecture documentation.
 
 Deployed automatically to GitHub Pages using [declarative-diagram-builder](https://github.com/Brezzdy/declarative-diagram-builder).
 
-## Projects
+## Systems
 
-| Project | Description | Stack |
-|---------|-------------|-------|
-| **BOS Platform** | Multi-tenant business operating system with per-client VPS | Docker, Odoo, Authentik, Nextcloud |
-| **Escroo** | Escrow transaction platform for Romania | React, Node.js, MongoDB, Stripe |
-| **Retur.ro** | Return management SaaS for e-commerce | React, FastAPI, PostgreSQL, Docker |
-| **Test Drive Booking** | Dealership test drive scheduling SaaS | React, Cloudflare Workers, D1, KV |
-| **Automations** | Task distribution & tracking system | n8n, Telegram Bot, Google Sheets |
-| **Scrum Poker** | Real-time planning poker for agile teams | Node.js, Socket.IO, EJS |
+| System | Description |
+|--------|-------------|
+| Multi-Tenant SaaS Platform | Isolated per-client infrastructure with SSO, CRM, docs, and monitoring |
+| Escrow Transaction Platform | Secure transaction escrow with dispute resolution and arbitration |
+| Return Management SaaS | E-commerce return handling with multi-carrier and refund orchestration |
+| Appointment Booking System | Edge-deployed scheduling with real-time availability and conflict detection |
+| Workflow Automation Engine | Task distribution and time tracking via messaging bots and spreadsheets |
+| Real-Time Voting App | WebSocket-based live voting with in-memory state and consensus |
 
 ## Structure
 
 ```
 diagrams/
-├── bos-platform/        # Business Operating System
-├── escroo/              # Escrow Platform
-├── retur-ro/            # Return Management SaaS
-├── testdrive-booking/   # Test Drive Booking
-├── automations/         # n8n Task Automation
-└── scrum-poker/         # Planning Poker
+├── multi-tenant-saas-platform/
+├── escrow-platform/
+├── return-management-saas/
+├── booking-system/
+├── workflow-automation/
+└── realtime-voting-app/
 ```
 
 ## Usage

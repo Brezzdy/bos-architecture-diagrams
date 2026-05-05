@@ -1,28 +1,28 @@
-# Escroo Platform Architecture
+# Escrow Transaction Platform
 
 ## System Architecture
 
 ```mermaid
 flowchart TB
-    subgraph Clients["👥 Clients"]
+    subgraph Clients["👥 Users"]
         Buyer[Buyer]
         Seller[Seller]
         Arbiter[Arbiter]
     end
 
-    subgraph Frontend["🖥️ React SPA"]
+    subgraph Frontend["🖥️ Single Page Application"]
         Dashboard[Dashboard]
         TxFlow[Transaction Flow]
         DisputeUI[Dispute Resolution UI]
         AdminPanel[Admin Panel]
     end
 
-    subgraph API["⚡ Node.js API Server"]
+    subgraph API["⚡ API Server"]
         direction TB
-        Express[Express.js]
+        Express[HTTP Framework]
         subgraph Middleware["Middleware"]
-            JWT[JWT Auth]
-            Passport[Passport.js<br/>Google OAuth]
+            JWT[JWT Authentication]
+            OAuth[OAuth2 Provider<br/>Social Login]
             Validator[Input Validation]
         end
         subgraph Controllers["Controllers"]
@@ -35,18 +35,18 @@ flowchart TB
         subgraph Services["Business Logic"]
             EscrowSvc[Escrow Service<br/>State Machine]
             PaymentSvc[Payment Service]
-            ArbitrageSvc[Arbitration Service]
+            ArbitrageSvc[Arbitration Engine]
         end
     end
 
     subgraph Payments["💳 Payment Providers"]
-        Stripe[Stripe<br/>Card Payments]
+        CardProvider[Card Payments]
         BankTransfer[Bank Transfer<br/>Manual Confirm]
     end
 
     subgraph Storage["🗄️ Data Layer"]
-        Mongo[(MongoDB<br/>Transactions & Users)]
-        Uploads[File Uploads<br/>Documents / Evidence]
+        Mongo[(Document DB<br/>Transactions & Users)]
+        Uploads[File Storage<br/>Documents / Evidence]
     end
 
     subgraph Jobs["⏰ Background Jobs"]

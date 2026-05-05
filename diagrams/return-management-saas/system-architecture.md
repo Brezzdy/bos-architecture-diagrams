@@ -1,34 +1,34 @@
-# Retur.ro Platform Architecture
+# Return Management SaaS
 
 ## System Architecture
 
 ```mermaid
 flowchart TB
     subgraph Actors["👥 Actors"]
-        Customer[Customer]
-        StoreAdmin[Store Admin]
+        Customer[End Customer]
+        StoreAdmin[Store Administrator]
     end
 
-    subgraph Frontend["🖥️ React Frontend"]
+    subgraph Frontend["🖥️ Frontend"]
         Landing[Landing Page<br/>+ Onboarding Wizard]
-        ReturnPortal[Self-Service Return Portal<br/>Store-Branded]
+        ReturnPortal[Self-Service Return Portal<br/>White-Label]
         AdminDash[Admin Dashboard<br/>Store Management]
-        MapView[Easybox Map<br/>Leaflet Interactive]
+        MapView[Locker Pickup Map<br/>Interactive]
     end
 
-    subgraph API["⚡ FastAPI Backend"]
+    subgraph API["⚡ Python API"]
         direction TB
         Router[API Router]
         subgraph Core["Core Services"]
             ReturnSvc[Return Service<br/>State Machine]
             RefundSvc[Refund Orchestration<br/>Card / Voucher]
-            AWBSvc[AWB Generator]
+            AWBSvc[Shipping Label Generator]
             TxTracker[Transaction Tracker<br/>Costs & Fees]
         end
-        subgraph Adapters["Platform Adapters"]
-            Shopify[Shopify Adapter]
-            Woo[WooCommerce Adapter]
-            CustomAPI[Custom API Adapter]
+        subgraph Adapters["E-Commerce Adapters"]
+            ShopifyAdpt[Shopify Adapter]
+            WooAdpt[WooCommerce Adapter]
+            CustomAdpt[Custom API Adapter]
         end
         subgraph Webhooks["Webhook System"]
             InboundWH[Inbound Webhooks<br/>Platform + Carrier Updates]
@@ -37,20 +37,18 @@ flowchart TB
     end
 
     subgraph External["🌐 External Services"]
-        ShopifyAPI[Shopify API]
-        WooAPI[WooCommerce API]
-        Sameday[Sameday Courier API<br/>AWB + Tracking]
-        Easybox[Easybox Lockers API<br/>Pickup Points]
+        EcommAPI[E-Commerce Platform APIs]
+        CourierAPI[Courier API<br/>Labels + Tracking]
+        LockerAPI[Locker Network API<br/>Pickup Points]
     end
 
     subgraph Data["🗄️ Data Layer"]
-        DB[(PostgreSQL<br/>SQLAlchemy ORM)]
-        Alembic[Alembic Migrations]
+        DB[(PostgreSQL<br/>ORM + Migrations)]
     end
 
     subgraph Deploy["🐳 Deployment"]
-        Docker[Docker Compose]
-        Nginx[Nginx Reverse Proxy]
+        Docker[Container Orchestration]
+        Proxy[Reverse Proxy]
     end
 
     Customer --> ReturnPortal
@@ -63,23 +61,21 @@ flowchart TB
     Router --> Webhooks
 
     ReturnSvc --> Adapters
-    AWBSvc --> Sameday
-    AWBSvc --> Easybox
+    AWBSvc --> CourierAPI
+    AWBSvc --> LockerAPI
     RefundSvc --> Adapters
 
-    Shopify --> ShopifyAPI
-    Woo --> WooAPI
+    ShopifyAdpt --> EcommAPI
+    WooAdpt --> EcommAPI
 
     InboundWH -->|Status Updates| ReturnSvc
-    OutboundWH -->|Signed Payloads| ShopifyAPI
-    OutboundWH -->|Signed Payloads| WooAPI
+    OutboundWH -->|Signed Payloads| EcommAPI
 
     Core --> DB
-    Alembic --> DB
 
     Docker --> API
     Docker --> Frontend
-    Nginx --> Docker
+    Proxy --> Docker
 
     style Actors fill:#e3f2fd,stroke:#1565c0
     style Frontend fill:#e8f5e9,stroke:#2e7d32

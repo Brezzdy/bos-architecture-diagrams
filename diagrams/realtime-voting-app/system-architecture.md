@@ -1,45 +1,45 @@
-# Scrum Poker Architecture
+# Real-Time Voting App
 
 ## System Architecture
 
 ```mermaid
 flowchart TB
     subgraph Actors["👥 Actors"]
-        ScrumMaster[Scrum Master<br/>Creates Room]
-        Devs[Developers<br/>Vote on Stories]
+        Host[Session Host<br/>Creates Room]
+        Participants[Participants<br/>Cast Votes]
     end
 
     subgraph Browser["🌐 Browser Client"]
-        Views[EJS Templates<br/>Server-Rendered]
-        SocketClient[Socket.IO Client<br/>Real-time Events]
+        Views[Server-Rendered Templates]
+        SocketClient[WebSocket Client<br/>Real-time Events]
     end
 
     subgraph Server["⚡ Node.js Server"]
-        Express[Express.js<br/>HTTP Routes]
+        HTTP[HTTP Server<br/>Route Handling]
         subgraph Routes["Routes"]
             RoomRoutes[Room Management<br/>Create / Join]
-            StaticRoutes[Static Assets<br/>Public Folder]
+            StaticRoutes[Static Assets]
         end
-        subgraph Realtime["Socket.IO Layer"]
-            SocketHandlers[Socket Handlers<br/>Vote / Reveal / Reset]
-            RoomState[Room State<br/>In-Memory]
+        subgraph Realtime["WebSocket Layer"]
+            SocketHandlers[Event Handlers<br/>Vote / Reveal / Reset]
+            RoomState[Room State Manager]
         end
-        Config[Config<br/>Card Values & Options]
+        Config[Config<br/>Vote Options & Rules]
     end
 
     subgraph State["📊 State (In-Memory)"]
-        Rooms[Active Rooms<br/>Room ID → Players]
-        Votes[Current Votes<br/>Player → Card Value]
+        Rooms[Active Rooms<br/>Room ID → Participants]
+        Votes[Current Votes<br/>Participant → Value]
         Consensus[Consensus Calculator]
     end
 
-    ScrumMaster --> Browser
-    Devs --> Browser
+    Host --> Browser
+    Participants --> Browser
 
-    Views -->|HTTP| Express
+    Views -->|HTTP| HTTP
     SocketClient <-->|WebSocket| SocketHandlers
 
-    Express --> Routes
+    HTTP --> Routes
     SocketHandlers --> RoomState
     RoomState --> State
 
