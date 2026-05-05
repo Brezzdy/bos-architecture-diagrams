@@ -1,0 +1,34 @@
+{
+  "_README": "TEMPLATE FILE - Customize for YOUR use case",
+  "_USAGE": "This file is OPTIONAL. Use it to organize diagrams by category, topic, or domain. Customize names and categories to fit YOUR needs.",
+  "_EXAMPLES": {
+    "For software docs": ["api-docs", "user-guides", "tutorials"],
+    "For enterprise architecture": ["business", "application", "data", "infrastructure"],
+    "For education": ["beginner", "intermediate", "advanced"],
+    "For projects": ["frontend", "backend", "database", "devops"]
+  },
+  
+  "technical": {
+    "name": "Technical Diagrams",
+    "description": "Technical documentation and system diagrams",
+    "owner": "CHANGE-ME@your-company.com",
+    "color": "#3b82f6",
+    "tags": ["technical", "system"]
+  },
+  
+  "business": {
+    "name": "Business Processes",
+    "description": "Business process flows and workflows",
+    "owner": "CHANGE-ME@your-company.com",
+    "color": "#10b981",
+    "tags": ["business", "process"]
+  },
+  
+  "documentation": {
+    "name": "Documentation",
+    "description": "General documentation diagrams",
+    "owner": "CHANGE-ME@your-company.com",
+    "color": "#8b5cf6",
+    "tags": ["docs", "guide"]
+  }
+}

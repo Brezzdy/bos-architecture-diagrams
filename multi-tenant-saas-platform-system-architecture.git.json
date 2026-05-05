@@ -1,0 +1,51 @@
+{
+  "commits": [
+    {
+      "hash": "20bbbaf3ce9996f2536d394a2d720c622247d6f2",
+      "shortHash": "20bbbaf",
+      "author": "Brezzdy",
+      "email": "eduard_ghe@yahoo.com",
+      "date": "2026-05-05T19:21:09.000Z",
+      "timestamp": 1778008869,
+      "message": "refactor: make all diagrams generic, remove project names",
+      "content": "flowchart TB\n    subgraph DEV[\"🖥️ Administration Machine\"]\n        CLI[CLI / Makefile]\n        Configs[Tenant Configs]\n        Scripts[Provisioning Scripts]\n    end\n\n    subgraph CTRL[\"🌐 Control Node\"]\n        direction TB\n        Traefik_Ctrl[Reverse Proxy + WAF]\n        Website[Marketing Website]\n        CRM_Ctrl[Internal CRM]\n        subgraph Monitoring[\"📊 Monitoring Stack\"]\n            Grafana[Dashboards]\n            Prometheus[Metrics Collector]\n            Alert[Alerting]\n        end\n    end\n\n    subgraph TENANT[\"🏢 Tenant Instance (per client)\"]\n        direction TB\n        Traefik_C[Reverse Proxy + WAF<br/>TLS Termination]\n        subgraph Apps[\"Application Layer\"]\n            Auth[Identity Provider<br/>SSO / OAuth2]\n            CRM[CRM / ERP<br/>Invoicing / HR]\n            Docs[Document Management<br/>File Sharing]\n            Vault[Secret Manager<br/>Passwords]\n            Mail[Email Service]\n        end\n        subgraph Data[\"Data Layer\"]\n            DB[(PostgreSQL)]\n            Redis[(Redis Cache)]\n        end\n        subgraph Ops[\"Operations\"]\n            Backup[Automated Backup]\n            Metrics_T[Metrics Exporter]\n        end\n    end\n\n    subgraph DNS[\"☁️ DNS & CDN\"]\n        CF[DNS + DDoS Protection<br/>Wildcard Records]\n    end\n\n    CLI -->|\"Deploy via SSH\"| CTRL\n    CLI -->|\"Deploy via SSH\"| TENANT\n    CF -->|HTTPS| Traefik_Ctrl\n    CF -->|HTTPS| Traefik_C\n\n    Traefik_Ctrl --> Website\n    Traefik_Ctrl --> CRM_Ctrl\n    Traefik_Ctrl --> Grafana\n\n    Traefik_C --> Auth\n    Traefik_C --> CRM\n    Traefik_C --> Docs\n    Traefik_C --> Vault\n    Traefik_C --> Mail\n\n    Auth -.->|SSO| CRM\n    Auth -.->|SSO| Docs\n    Auth -.->|SSO| Vault\n\n    CRM --> DB\n    Docs --> DB\n    Auth --> DB\n    CRM --> Redis\n    Auth --> Redis\n\n    Metrics_T -->|\"HTTPS + Auth\"| Prometheus\n    Prometheus --> Alert\n    Prometheus --> Grafana\n\n    Backup -.->|\"Scheduled\"| DB\n    Backup -.->|\"Scheduled\"| Docs\n\n    style DEV fill:#e3f2fd,stroke:#1565c0\n    style CTRL fill:#fff3e0,stroke:#e65100\n    style TENANT fill:#e8f5e9,stroke:#2e7d32\n    style DNS fill:#fce4ec,stroke:#c62828\n    style Monitoring fill:#fff8e1,stroke:#f57f17\n    style Apps fill:#e8f5e9,stroke:#388e3c\n    style Data fill:#f3e5f5,stroke:#7b1fa2\n    style Ops fill:#e0f7fa,stroke:#00838f",
+      "svg": null
+    },
+    {
+      "hash": "1eabf5c8bb5e4dc969c0fa5b9c8f8adc3448f073",
+      "shortHash": "1eabf5c",
+      "author": "Brezzdy",
+      "email": "eduard_ghe@yahoo.com",
+      "date": "2026-05-05T19:17:51.000Z",
+      "timestamp": 1778008671,
+      "message": "refactor: restructure diagrams by project with system architecture only",
+      "content": null,
+      "svg": null
+    }
+  ],
+  "repoUrl": "https://github.com/Brezzdy/bos-architecture-diagrams",
+  "platform": "github",
+  "firstCommit": {
+    "hash": "1eabf5c8bb5e4dc969c0fa5b9c8f8adc3448f073",
+    "shortHash": "1eabf5c",
+    "author": "Brezzdy",
+    "email": "eduard_ghe@yahoo.com",
+    "date": "2026-05-05T19:17:51.000Z",
+    "timestamp": 1778008671,
+    "message": "refactor: restructure diagrams by project with system architecture only",
+    "content": null,
+    "svg": null
+  },
+  "lastCommit": {
+    "hash": "20bbbaf3ce9996f2536d394a2d720c622247d6f2",
+    "shortHash": "20bbbaf",
+    "author": "Brezzdy",
+    "email": "eduard_ghe@yahoo.com",
+    "date": "2026-05-05T19:21:09.000Z",
+    "timestamp": 1778008869,
+    "message": "refactor: make all diagrams generic, remove project names",
+    "content": "flowchart TB\n    subgraph DEV[\"🖥️ Administration Machine\"]\n        CLI[CLI / Makefile]\n        Configs[Tenant Configs]\n        Scripts[Provisioning Scripts]\n    end\n\n    subgraph CTRL[\"🌐 Control Node\"]\n        direction TB\n        Traefik_Ctrl[Reverse Proxy + WAF]\n        Website[Marketing Website]\n        CRM_Ctrl[Internal CRM]\n        subgraph Monitoring[\"📊 Monitoring Stack\"]\n            Grafana[Dashboards]\n            Prometheus[Metrics Collector]\n            Alert[Alerting]\n        end\n    end\n\n    subgraph TENANT[\"🏢 Tenant Instance (per client)\"]\n        direction TB\n        Traefik_C[Reverse Proxy + WAF<br/>TLS Termination]\n        subgraph Apps[\"Application Layer\"]\n            Auth[Identity Provider<br/>SSO / OAuth2]\n            CRM[CRM / ERP<br/>Invoicing / HR]\n            Docs[Document Management<br/>File Sharing]\n            Vault[Secret Manager<br/>Passwords]\n            Mail[Email Service]\n        end\n        subgraph Data[\"Data Layer\"]\n            DB[(PostgreSQL)]\n            Redis[(Redis Cache)]\n        end\n        subgraph Ops[\"Operations\"]\n            Backup[Automated Backup]\n            Metrics_T[Metrics Exporter]\n        end\n    end\n\n    subgraph DNS[\"☁️ DNS & CDN\"]\n        CF[DNS + DDoS Protection<br/>Wildcard Records]\n    end\n\n    CLI -->|\"Deploy via SSH\"| CTRL\n    CLI -->|\"Deploy via SSH\"| TENANT\n    CF -->|HTTPS| Traefik_Ctrl\n    CF -->|HTTPS| Traefik_C\n\n    Traefik_Ctrl --> Website\n    Traefik_Ctrl --> CRM_Ctrl\n    Traefik_Ctrl --> Grafana\n\n    Traefik_C --> Auth\n    Traefik_C --> CRM\n    Traefik_C --> Docs\n    Traefik_C --> Vault\n    Traefik_C --> Mail\n\n    Auth -.->|SSO| CRM\n    Auth -.->|SSO| Docs\n    Auth -.->|SSO| Vault\n\n    CRM --> DB\n    Docs --> DB\n    Auth --> DB\n    CRM --> Redis\n    Auth --> Redis\n\n    Metrics_T -->|\"HTTPS + Auth\"| Prometheus\n    Prometheus --> Alert\n    Prometheus --> Grafana\n\n    Backup -.->|\"Scheduled\"| DB\n    Backup -.->|\"Scheduled\"| Docs\n\n    style DEV fill:#e3f2fd,stroke:#1565c0\n    style CTRL fill:#fff3e0,stroke:#e65100\n    style TENANT fill:#e8f5e9,stroke:#2e7d32\n    style DNS fill:#fce4ec,stroke:#c62828\n    style Monitoring fill:#fff8e1,stroke:#f57f17\n    style Apps fill:#e8f5e9,stroke:#388e3c\n    style Data fill:#f3e5f5,stroke:#7b1fa2\n    style Ops fill:#e0f7fa,stroke:#00838f",
+    "svg": null
+  },
+  "totalCommits": 2
+}

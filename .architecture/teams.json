@@ -1,0 +1,35 @@
+{
+  "_comment": "TODO: Replace with your actual teams and member email addresses",
+  "architecture-team": {
+    "name": "Architecture Team",
+    "description": "Enterprise Architecture team responsible for overall architecture governance",
+    "members": ["chief-architect@company.com", "domain-architects@company.com"],
+    "responsibilities": [
+      "Define architecture standards",
+      "Review and approve architecture decisions",
+      "Maintain architecture repository"
+    ]
+  },
+  
+  "platform-team": {
+    "name": "Platform Team",
+    "description": "Team responsible for platform services and infrastructure",
+    "members": ["platform-lead", "devops-engineers"],
+    "responsibilities": [
+      "Manage platform services",
+      "DevOps and CI/CD",
+      "Infrastructure as Code"
+    ]
+  },
+  
+  "security-team": {
+    "name": "Security Team",
+    "description": "Information security team",
+    "members": ["ciso", "security-architects", "security-engineers"],
+    "responsibilities": [
+      "Security architecture and design",
+      "Security assessments",
+      "Incident response"
+    ]
+  }
+}

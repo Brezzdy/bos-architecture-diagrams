@@ -1,0 +1,51 @@
+{
+  "commits": [
+    {
+      "hash": "20bbbaf3ce9996f2536d394a2d720c622247d6f2",
+      "shortHash": "20bbbaf",
+      "author": "Brezzdy",
+      "email": "eduard_ghe@yahoo.com",
+      "date": "2026-05-05T19:21:09.000Z",
+      "timestamp": 1778008869,
+      "message": "refactor: make all diagrams generic, remove project names",
+      "content": "flowchart TB\n    subgraph Actors[\"👥 Actors\"]\n        Customer[Customer<br/>PWA Mobile/Desktop]\n        Staff[Staff User<br/>Back Office]\n        SuperAdmin[Super Admin]\n    end\n\n    subgraph Edge[\"📱 Static Hosting + CDN\"]\n        ReactApp[React PWA<br/>Vite Build]\n        subgraph UI[\"UI Layer\"]\n            Calendar[Calendar View<br/>Availability Slots]\n            BookingForm[Booking Form]\n            ResourceMgmt[Resource Management]\n            AdminUI[Admin Dashboard]\n        end\n    end\n\n    subgraph Workers[\"⚡ Edge Workers API\"]\n        Framework[HTTP Framework]\n        subgraph MW[\"Middleware\"]\n            AuthMW[Auth Middleware<br/>JWT + RBAC]\n            RateLimit[Rate Limiting]\n        end\n        subgraph Routes[\"API Routes\"]\n            BookingRoutes[Booking Routes]\n            ResourceRoutes[Resource Routes]\n            ScheduleRoutes[Schedule Routes]\n            TenantRoutes[Tenant Routes]\n        end\n        subgraph Logic[\"Business Logic\"]\n            AvailCalc[Availability Calculator]\n            ConflictCheck[Overlap Detection]\n            SlotGen[Time Slot Generator]\n        end\n    end\n\n    subgraph DataLayer[\"☁️ Edge Data\"]\n        D1[(SQL Database)]\n        KV[Key-Value Cache<br/>Availability Slots]\n        R2[Object Storage<br/>Images]\n    end\n\n    subgraph Shared[\"📦 Shared Package\"]\n        Types[TypeScript Types]\n        Schemas[Validation Schemas]\n    end\n\n    Customer --> ReactApp\n    Staff --> ReactApp\n    SuperAdmin --> ReactApp\n\n    ReactApp -->|REST API| Framework\n    Framework --> MW --> Routes\n    Routes --> Logic\n\n    Logic --> D1\n    Logic --> KV\n    BookingRoutes --> ConflictCheck\n    ScheduleRoutes --> AvailCalc\n    AvailCalc --> SlotGen\n\n    ResourceRoutes --> R2\n    AvailCalc --> KV\n\n    Shared -.-> ReactApp\n    Shared -.-> Framework\n\n    style Actors fill:#e3f2fd,stroke:#1565c0\n    style Edge fill:#e8f5e9,stroke:#2e7d32\n    style Workers fill:#fff3e0,stroke:#e65100\n    style DataLayer fill:#f3e5f5,stroke:#7b1fa2\n    style Shared fill:#e0f7fa,stroke:#00838f\n    style UI fill:#e8f5e9,stroke:#388e3c\n    style MW fill:#fff8e1,stroke:#f57f17\n    style Routes fill:#fff3e0,stroke:#ef6c00\n    style Logic fill:#fff3e0,stroke:#ff8f00",
+      "svg": null
+    },
+    {
+      "hash": "1eabf5c8bb5e4dc969c0fa5b9c8f8adc3448f073",
+      "shortHash": "1eabf5c",
+      "author": "Brezzdy",
+      "email": "eduard_ghe@yahoo.com",
+      "date": "2026-05-05T19:17:51.000Z",
+      "timestamp": 1778008671,
+      "message": "refactor: restructure diagrams by project with system architecture only",
+      "content": null,
+      "svg": null
+    }
+  ],
+  "repoUrl": "https://github.com/Brezzdy/bos-architecture-diagrams",
+  "platform": "github",
+  "firstCommit": {
+    "hash": "1eabf5c8bb5e4dc969c0fa5b9c8f8adc3448f073",
+    "shortHash": "1eabf5c",
+    "author": "Brezzdy",
+    "email": "eduard_ghe@yahoo.com",
+    "date": "2026-05-05T19:17:51.000Z",
+    "timestamp": 1778008671,
+    "message": "refactor: restructure diagrams by project with system architecture only",
+    "content": null,
+    "svg": null
+  },
+  "lastCommit": {
+    "hash": "20bbbaf3ce9996f2536d394a2d720c622247d6f2",
+    "shortHash": "20bbbaf",
+    "author": "Brezzdy",
+    "email": "eduard_ghe@yahoo.com",
+    "date": "2026-05-05T19:21:09.000Z",
+    "timestamp": 1778008869,
+    "message": "refactor: make all diagrams generic, remove project names",
+    "content": "flowchart TB\n    subgraph Actors[\"👥 Actors\"]\n        Customer[Customer<br/>PWA Mobile/Desktop]\n        Staff[Staff User<br/>Back Office]\n        SuperAdmin[Super Admin]\n    end\n\n    subgraph Edge[\"📱 Static Hosting + CDN\"]\n        ReactApp[React PWA<br/>Vite Build]\n        subgraph UI[\"UI Layer\"]\n            Calendar[Calendar View<br/>Availability Slots]\n            BookingForm[Booking Form]\n            ResourceMgmt[Resource Management]\n            AdminUI[Admin Dashboard]\n        end\n    end\n\n    subgraph Workers[\"⚡ Edge Workers API\"]\n        Framework[HTTP Framework]\n        subgraph MW[\"Middleware\"]\n            AuthMW[Auth Middleware<br/>JWT + RBAC]\n            RateLimit[Rate Limiting]\n        end\n        subgraph Routes[\"API Routes\"]\n            BookingRoutes[Booking Routes]\n            ResourceRoutes[Resource Routes]\n            ScheduleRoutes[Schedule Routes]\n            TenantRoutes[Tenant Routes]\n        end\n        subgraph Logic[\"Business Logic\"]\n            AvailCalc[Availability Calculator]\n            ConflictCheck[Overlap Detection]\n            SlotGen[Time Slot Generator]\n        end\n    end\n\n    subgraph DataLayer[\"☁️ Edge Data\"]\n        D1[(SQL Database)]\n        KV[Key-Value Cache<br/>Availability Slots]\n        R2[Object Storage<br/>Images]\n    end\n\n    subgraph Shared[\"📦 Shared Package\"]\n        Types[TypeScript Types]\n        Schemas[Validation Schemas]\n    end\n\n    Customer --> ReactApp\n    Staff --> ReactApp\n    SuperAdmin --> ReactApp\n\n    ReactApp -->|REST API| Framework\n    Framework --> MW --> Routes\n    Routes --> Logic\n\n    Logic --> D1\n    Logic --> KV\n    BookingRoutes --> ConflictCheck\n    ScheduleRoutes --> AvailCalc\n    AvailCalc --> SlotGen\n\n    ResourceRoutes --> R2\n    AvailCalc --> KV\n\n    Shared -.-> ReactApp\n    Shared -.-> Framework\n\n    style Actors fill:#e3f2fd,stroke:#1565c0\n    style Edge fill:#e8f5e9,stroke:#2e7d32\n    style Workers fill:#fff3e0,stroke:#e65100\n    style DataLayer fill:#f3e5f5,stroke:#7b1fa2\n    style Shared fill:#e0f7fa,stroke:#00838f\n    style UI fill:#e8f5e9,stroke:#388e3c\n    style MW fill:#fff8e1,stroke:#f57f17\n    style Routes fill:#fff3e0,stroke:#ef6c00\n    style Logic fill:#fff3e0,stroke:#ff8f00",
+    "svg": null
+  },
+  "totalCommits": 2
+}

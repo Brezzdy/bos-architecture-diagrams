@@ -1,0 +1,51 @@
+{
+  "commits": [
+    {
+      "hash": "20bbbaf3ce9996f2536d394a2d720c622247d6f2",
+      "shortHash": "20bbbaf",
+      "author": "Brezzdy",
+      "email": "eduard_ghe@yahoo.com",
+      "date": "2026-05-05T19:21:09.000Z",
+      "timestamp": 1778008869,
+      "message": "refactor: make all diagrams generic, remove project names",
+      "content": "flowchart TB\n    subgraph Actors[\"👥 Actors\"]\n        Host[Session Host<br/>Creates Room]\n        Participants[Participants<br/>Cast Votes]\n    end\n\n    subgraph Browser[\"🌐 Browser Client\"]\n        Views[Server-Rendered Templates]\n        SocketClient[WebSocket Client<br/>Real-time Events]\n    end\n\n    subgraph Server[\"⚡ Node.js Server\"]\n        HTTP[HTTP Server<br/>Route Handling]\n        subgraph Routes[\"Routes\"]\n            RoomRoutes[Room Management<br/>Create / Join]\n            StaticRoutes[Static Assets]\n        end\n        subgraph Realtime[\"WebSocket Layer\"]\n            SocketHandlers[Event Handlers<br/>Vote / Reveal / Reset]\n            RoomState[Room State Manager]\n        end\n        Config[Config<br/>Vote Options & Rules]\n    end\n\n    subgraph State[\"📊 State (In-Memory)\"]\n        Rooms[Active Rooms<br/>Room ID → Participants]\n        Votes[Current Votes<br/>Participant → Value]\n        Consensus[Consensus Calculator]\n    end\n\n    Host --> Browser\n    Participants --> Browser\n\n    Views -->|HTTP| HTTP\n    SocketClient <-->|WebSocket| SocketHandlers\n\n    HTTP --> Routes\n    SocketHandlers --> RoomState\n    RoomState --> State\n\n    SocketHandlers -->|\"vote\"| Votes\n    SocketHandlers -->|\"reveal\"| Consensus\n    SocketHandlers -->|\"reset\"| Rooms\n\n    style Actors fill:#e3f2fd,stroke:#1565c0\n    style Browser fill:#e8f5e9,stroke:#2e7d32\n    style Server fill:#fff3e0,stroke:#e65100\n    style State fill:#f3e5f5,stroke:#7b1fa2\n    style Routes fill:#fff8e1,stroke:#f57f17\n    style Realtime fill:#fff3e0,stroke:#ef6c00",
+      "svg": null
+    },
+    {
+      "hash": "1eabf5c8bb5e4dc969c0fa5b9c8f8adc3448f073",
+      "shortHash": "1eabf5c",
+      "author": "Brezzdy",
+      "email": "eduard_ghe@yahoo.com",
+      "date": "2026-05-05T19:17:51.000Z",
+      "timestamp": 1778008671,
+      "message": "refactor: restructure diagrams by project with system architecture only",
+      "content": null,
+      "svg": null
+    }
+  ],
+  "repoUrl": "https://github.com/Brezzdy/bos-architecture-diagrams",
+  "platform": "github",
+  "firstCommit": {
+    "hash": "1eabf5c8bb5e4dc969c0fa5b9c8f8adc3448f073",
+    "shortHash": "1eabf5c",
+    "author": "Brezzdy",
+    "email": "eduard_ghe@yahoo.com",
+    "date": "2026-05-05T19:17:51.000Z",
+    "timestamp": 1778008671,
+    "message": "refactor: restructure diagrams by project with system architecture only",
+    "content": null,
+    "svg": null
+  },
+  "lastCommit": {
+    "hash": "20bbbaf3ce9996f2536d394a2d720c622247d6f2",
+    "shortHash": "20bbbaf",
+    "author": "Brezzdy",
+    "email": "eduard_ghe@yahoo.com",
+    "date": "2026-05-05T19:21:09.000Z",
+    "timestamp": 1778008869,
+    "message": "refactor: make all diagrams generic, remove project names",
+    "content": "flowchart TB\n    subgraph Actors[\"👥 Actors\"]\n        Host[Session Host<br/>Creates Room]\n        Participants[Participants<br/>Cast Votes]\n    end\n\n    subgraph Browser[\"🌐 Browser Client\"]\n        Views[Server-Rendered Templates]\n        SocketClient[WebSocket Client<br/>Real-time Events]\n    end\n\n    subgraph Server[\"⚡ Node.js Server\"]\n        HTTP[HTTP Server<br/>Route Handling]\n        subgraph Routes[\"Routes\"]\n            RoomRoutes[Room Management<br/>Create / Join]\n            StaticRoutes[Static Assets]\n        end\n        subgraph Realtime[\"WebSocket Layer\"]\n            SocketHandlers[Event Handlers<br/>Vote / Reveal / Reset]\n            RoomState[Room State Manager]\n        end\n        Config[Config<br/>Vote Options & Rules]\n    end\n\n    subgraph State[\"📊 State (In-Memory)\"]\n        Rooms[Active Rooms<br/>Room ID → Participants]\n        Votes[Current Votes<br/>Participant → Value]\n        Consensus[Consensus Calculator]\n    end\n\n    Host --> Browser\n    Participants --> Browser\n\n    Views -->|HTTP| HTTP\n    SocketClient <-->|WebSocket| SocketHandlers\n\n    HTTP --> Routes\n    SocketHandlers --> RoomState\n    RoomState --> State\n\n    SocketHandlers -->|\"vote\"| Votes\n    SocketHandlers -->|\"reveal\"| Consensus\n    SocketHandlers -->|\"reset\"| Rooms\n\n    style Actors fill:#e3f2fd,stroke:#1565c0\n    style Browser fill:#e8f5e9,stroke:#2e7d32\n    style Server fill:#fff3e0,stroke:#e65100\n    style State fill:#f3e5f5,stroke:#7b1fa2\n    style Routes fill:#fff8e1,stroke:#f57f17\n    style Realtime fill:#fff3e0,stroke:#ef6c00",
+    "svg": null
+  },
+  "totalCommits": 2
+}

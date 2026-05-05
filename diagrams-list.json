@@ -1,0 +1,50 @@
+[
+  {
+    "id": "booking-system-system-architecture",
+    "title": "System Architecture",
+    "file": "diagrams/booking-system/system-architecture.md",
+    "relativePath": "booking-system/system-architecture.md",
+    "category": "booking-system",
+    "diagramType": "mermaid"
+  },
+  {
+    "id": "escrow-platform-system-architecture",
+    "title": "System Architecture",
+    "file": "diagrams/escrow-platform/system-architecture.md",
+    "relativePath": "escrow-platform/system-architecture.md",
+    "category": "escrow-platform",
+    "diagramType": "mermaid"
+  },
+  {
+    "id": "multi-tenant-saas-platform-system-architecture",
+    "title": "System Architecture",
+    "file": "diagrams/multi-tenant-saas-platform/system-architecture.md",
+    "relativePath": "multi-tenant-saas-platform/system-architecture.md",
+    "category": "multi-tenant-saas-platform",
+    "diagramType": "mermaid"
+  },
+  {
+    "id": "realtime-voting-app-system-architecture",
+    "title": "System Architecture",
+    "file": "diagrams/realtime-voting-app/system-architecture.md",
+    "relativePath": "realtime-voting-app/system-architecture.md",
+    "category": "realtime-voting-app",
+    "diagramType": "mermaid"
+  },
+  {
+    "id": "return-management-saas-system-architecture",
+    "title": "System Architecture",
+    "file": "diagrams/return-management-saas/system-architecture.md",
+    "relativePath": "return-management-saas/system-architecture.md",
+    "category": "return-management-saas",
+    "diagramType": "mermaid"
+  },
+  {
+    "id": "workflow-automation-system-architecture",
+    "title": "System Architecture",
+    "file": "diagrams/workflow-automation/system-architecture.md",
+    "relativePath": "workflow-automation/system-architecture.md",
+    "category": "workflow-automation",
+    "diagramType": "mermaid"
+  }
+]
